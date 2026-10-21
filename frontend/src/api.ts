@@ -38,3 +38,44 @@ export const updateTask = (id: number, updates: TaskUpdate) =>
 
 export const deleteTask = (id: number) =>
   request<void>(`/tasks/${id}`, { method: "DELETE" });
+
+export type Category = "physical" | "creative" | "social" | "relaxing" | "learning";
+export const CATEGORIES: Category[] = ["physical", "creative", "social", "relaxing", "learning"];
+
+export type Activity = {
+  id: number;
+  name: string;
+  category: Category;
+  duration_minutes: number;
+  energy: 1 | 2 | 3;
+  notes: string | null;
+  created_at: string;
+};
+
+export type ActivityCreate = {
+  name: string;
+  category: Category;
+  duration_minutes: number;
+  energy: number;
+  notes?: string | null;
+};
+
+export type ActivityFilters = {
+  max_minutes?: number;
+  max_energy?: number;
+};
+
+export function getActivities(filters: ActivityFilters = {}) {
+  const params = new URLSearchParams();
+  for (const [key, value] of Object.entries(filters)) {
+    if (value !== undefined) params.set(key, String(value));
+  }
+  const qs = params.toString();
+  return request<Activity[]>(`/activities${qs ? `?${qs}` : ""}`);
+}
+
+export const createActivity = (activity: ActivityCreate) =>
+  request<Activity>("/activities", { method: "POST", body: JSON.stringify(activity) });
+
+export const deleteActivity = (id: number) =>
+  request<void>(`/activities/${id}`, { method: "DELETE" });
