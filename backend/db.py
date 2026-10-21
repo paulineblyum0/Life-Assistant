@@ -1,6 +1,10 @@
 import os
 from sqlmodel import SQLModel, Session, create_engine
 
+from typing import Annotated
+from fastapi import Depends
+
+
 DATABASE_URL = os.getenv(
     "DATABASE_URL", "postgresql+psycopg://localhost/life_assistant"
 )
@@ -15,3 +19,5 @@ def create_db_and_tables():
 def get_session():
     with Session(engine) as session:
         yield session
+
+SessionDep = Annotated[Session, Depends(get_session)]
