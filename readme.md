@@ -72,5 +72,3 @@ Open the **Network** URL Vite prints on your phone (same Wi-Fi) to use it on mob
 ---
 
 ---
-
-*A personal project, built one milestone at a time.*
