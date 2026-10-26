@@ -55,7 +55,7 @@ life-assistant/
 cd backend
 python3 -m venv .venv
 source .venv/bin/activate
-pip install "fastapi[standard]" sqlmodel pytest
+pip install -r requirements.txt
 python -m fastapi dev main.py --host 0.0.0.0
 ```
 API docs: http://127.0.0.1:8000/docs
@@ -71,4 +71,12 @@ Open the **Network** URL Vite prints on your phone (same Wi-Fi) to use it on mob
 
 ---
 
----
+## Running tests
+
+```bash
+cd backend
+source .venv/bin/activate
+python -m pytest
+```
+
+The tests use a throwaway in-memory SQLite database, so they never touch your real Postgres data.

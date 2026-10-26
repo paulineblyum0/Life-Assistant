@@ -10,3 +10,5 @@ dist/
 # Secrets / OS
 .env
 .DS_Store
+# Tests
+.pytest_cache/
